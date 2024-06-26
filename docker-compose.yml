@@ -1,0 +1,93 @@
+services:
+
+  postgresql:
+    container_name: postgresql
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+  config_server:
+    container_name: "config_server"
+    build: ./config-server
+    ports:
+      - "8888:8888"
+    expose:
+      - "8888"
+    networks:
+      - backend
+
+  discovery:
+    container_name: "discovery"
+    build: ./discovery
+    ports:
+      - "8761:8761"
+    depends_on:
+      - config_server
+    networks:
+      - backend
+
+  gateway:
+    container_name: "gateway"
+    build: ./gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - config_server
+    networks:
+      - backend
+
+  student:
+    container_name: "student"
+    build: ./student
+    ports:
+      - "8090:8090"
+    depends_on:
+      - postgresql
+      - config_server
+    networks:
+      - backend
+
+  school:
+    container_name: "school"
+    build: ./school
+    ports:
+      - "8070:8070"
+    depends_on:
+      - postgresql
+      - config_server
+    networks:
+      - backend
+
+networks:
+  postgres:
+    driver: bridge
+  backend:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin:

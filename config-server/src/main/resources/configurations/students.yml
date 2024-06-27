@@ -1,7 +1,7 @@
 eureka:
   client:
     service-url:
-      defaultZone: http://discovery:8761/eureka
+      defaultZone: http://discovery:8761/eureka/
 
 server:
   port: 8090
@@ -12,7 +12,7 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://postgresql:5432/students
-    username: postgres
+    username: root
     password: root
   jpa:
     hibernate:

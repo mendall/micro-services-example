@@ -13,5 +13,7 @@ FROM openjdk:17-jdk-slim
 EXPOSE 8090
 # Copy JAR file from the builder stage
 COPY --from=BUILD /build/target/*.jar app.jar
+# Add the SQL script
+ADD data.sql data.sql
 # Start the application
 CMD ["java", "-jar", "app.jar"]

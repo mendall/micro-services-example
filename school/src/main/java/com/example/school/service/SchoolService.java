@@ -48,4 +48,9 @@ public class SchoolService {
     public ResponseEntity<String> handleEntityNotFoundException(EntityNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
+
+    public void updateStudentsCount(Long schoolId) {
+        schoolRepository.findById(schoolId).ifPresent(school ->
+                schoolRepository.updateStudentsCount(school.getId()));
+    }
 }

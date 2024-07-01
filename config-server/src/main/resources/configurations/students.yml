@@ -19,3 +19,6 @@ spring:
       ddl-auto: update
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+kafka:
+  bootstrap-servers: kafka:9092

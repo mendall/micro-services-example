@@ -1,6 +1,4 @@
 eureka:
-  server:
-    addres:
   instance:
     hostname: discovery
   client:

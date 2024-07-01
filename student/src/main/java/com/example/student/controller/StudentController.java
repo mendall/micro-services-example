@@ -21,7 +21,7 @@ public class StudentController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createStudent(@RequestBody StudentTO studentTO) {
 
-        studentService.save(StudentMapper.INSTANCE.getStudent(studentTO));
+        studentService.save(studentTO);
     }
 
     @GetMapping

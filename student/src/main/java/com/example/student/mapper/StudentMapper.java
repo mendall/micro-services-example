@@ -7,6 +7,12 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
+/**
+ * The StudentMapper interface is responsible for mapping between Student and StudentTO objects.
+ * It uses MapStruct library for automatic generation of the mapping code.
+ * It provides methods to convert a StudentTO object to a Student object and a
+ * collection of Student objects to a list of StudentTO objects.
+ */
 @Mapper(componentModel = "spring")
 public interface StudentMapper {
 

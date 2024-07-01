@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.List;
 
+/**
+ * The SchoolService class provides methods for managing school data, such as saving schools,
+ * retrieving all schools, retrieving a school with its students, and updating the number of students in a school.
+ */
 @Service
 @RequiredArgsConstructor
 public class SchoolService {

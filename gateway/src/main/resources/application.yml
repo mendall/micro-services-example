@@ -1,6 +1,7 @@
 spring:
   cloud:
     config:
+      fail-fast: true
       enabled: true
   application:
     name: gateway

@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * The StudentService class is responsible for providing CRUD operations for Student data.
+ * It interacts with the StudentRepository to perform database operations and with the KafkaService to update school data in Kafka.
+ */
 @Service
 @RequiredArgsConstructor
 public class StudentService {

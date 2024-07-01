@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
+/**
+ * The StudentClient interface provides methods for interacting with the student service API.
+ */
 @FeignClient(name = "student-service", url = "${application.config.students-url}")
 public interface StudentClient {
 

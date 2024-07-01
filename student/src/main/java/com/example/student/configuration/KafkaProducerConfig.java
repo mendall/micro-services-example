@@ -15,6 +15,12 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Configuration class for KafkaProducer.
+ *
+ * This class provides the necessary configuration for setting up a KafkaProducer
+ * to produce messages to a Kafka topic.
+ */
 @Configuration
 public class KafkaProducerConfig {
 

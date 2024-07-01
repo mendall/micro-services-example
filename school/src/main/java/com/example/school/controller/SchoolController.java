@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * The SchoolController class is responsible for handling HTTP requests related to schools.
+ * It exposes endpoints for creating a new school, retrieving all schools, and retrieving a school with its students.
+ */
 @RestController
 @RequestMapping("/api/v1/schools")
 @RequiredArgsConstructor

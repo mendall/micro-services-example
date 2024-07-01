@@ -6,6 +6,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
+/**
+ * This class is responsible for consuming messages from a Kafka topic and updating the students count in the school service.
+ * It listens to messages from the "school_update" topic and when a message is received, it calls the {@link SchoolService#updateStudentsCount(Long)} method to update the students
+ *  count in the school service.
+ */
 @Service
 @Slf4j
 @AllArgsConstructor

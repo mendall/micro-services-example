@@ -1,6 +1,10 @@
 eureka:
   instance:
     hostname: discovery
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+  server:
+    enableSelfPreservation: false
   client:
     register-with-eureka: false
     fetch-registry: false

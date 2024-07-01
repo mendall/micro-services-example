@@ -1,5 +1,19 @@
 services:
 
+  config:
+    container_name: "config"
+    build: ./config-server
+    networks:
+      - backend
+
+  zookeeper:
+    container_name: zookeeper
+    image: zookeeper:3.7.2
+    ports:
+      - "2181:2181"
+    networks:
+      - backend
+
   postgresql:
     container_name: postgresql
     image: postgres
@@ -30,14 +44,6 @@ services:
       - backend
     restart: unless-stopped
 
-  zookeeper:
-    container_name: zookeeper
-    image: zookeeper:3.7.2
-    ports:
-      - "2181:2181"
-    networks:
-      - backend
-
   kafka:
     container_name: kafka
     image: bitnami/kafka:3.3.2
@@ -49,6 +55,7 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     depends_on:
       - zookeeper
+    restart: unless-stopped
     networks:
       - backend
 
@@ -56,7 +63,7 @@ services:
     container_name: kafka-setup
     image: bitnami/kafka:3.3.2
     depends_on:
-      - kafka
+        - kafka
     command:
       - bash
       - -c
@@ -65,14 +72,6 @@ services:
         until printf "" 2>> /dev/null >>/dev/tcp/kafka/9092; do sleep 1; done
         kafka-topics.sh --create --if-not-exists --bootstrap-server kafka:9092 --partitions 3 --replication-factor 1 --topic update_school
         echo "Kafka is alive..."
-
-  config:
-    container_name: "config"
-    build: ./config-server
-    ports:
-      - "8888:8888"
-    networks:
-      - backend
 
   discovery:
     container_name: "discovery"
@@ -83,6 +82,7 @@ services:
       - config
     networks:
       - backend
+    restart: unless-stopped
 
   gateway:
     container_name: "gateway"
@@ -90,35 +90,36 @@ services:
     ports:
       - "8222:8222"
     depends_on:
-      - config
+        - config
     networks:
       - backend
+    restart: unless-stopped
 
   student:
     container_name: "student"
     build: ./student
-    ports:
-      - "8090:8090"
     depends_on:
       - postgresql
       - config
+      - kafka
+      - discovery
     networks:
       - backend
+    restart: unless-stopped
 
   school:
     container_name: "school"
     build: ./school
-    ports:
-      - "8070:8070"
     depends_on:
       - postgresql
       - config
+      - kafka
+      - discovery
     networks:
       - backend
+    restart: unless-stopped
 
 networks:
-  postgres:
-    driver: bridge
   backend:
     driver: bridge
 

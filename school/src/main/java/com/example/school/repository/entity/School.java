@@ -28,5 +28,5 @@ public class School {
     @Email(message = "Email should be valid")
     private String email;
 
-    private Integer studentsCount = 0;
+    private int studentsCount = 0;
 }

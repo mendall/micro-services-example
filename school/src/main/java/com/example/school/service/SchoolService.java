@@ -6,6 +6,7 @@ import com.example.school.client.StudentClient;
 import com.example.school.exception.EntityNotFoundException;
 import com.example.school.repository.SchoolRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class SchoolService {
 
     private final SchoolRepository schoolRepository;
@@ -26,6 +28,8 @@ public class SchoolService {
 
     public void save(School school) {
         schoolRepository.save(school);
+
+        log.info("School with id: {} and name: {} has been saved successfully.", school.getId(), school.getName());
     }
 
     public List<School> findAll() {

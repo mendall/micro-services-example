@@ -20,7 +20,7 @@ public class KafkaConsumerService {
 
     @KafkaListener(topics = "school_update", groupId = "notification_group")
     public void studentAddedEventListener(StudentTO student) {
-        log.debug("Received Message: %s ".formatted(student));
+        log.info("Received Message: %s ".formatted(student));
         schoolService.updateStudentsCount(student.schoolId());
     }
 }

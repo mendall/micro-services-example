@@ -139,6 +139,46 @@ services:
     networks:
       - backend
 
+  elasticsearch:
+    container_name: elasticsearch
+    hostname: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.14.1
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - 9200:9200
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    networks:
+      - backend
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.14.1
+    container_name: logstash
+    hostname: logstash
+    ports:
+      - "5000:5000"
+    volumes:
+      - logstash-data:/tmp/
+    command: >
+      logstash --debug -e 'input { tcp { port => 5000 codec => json { charset => "UTF-8" } } } output { elasticsearch { hosts => "elasticsearch:9200" } }'
+    depends_on:
+      - elasticsearch
+    networks:
+      - backend
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.14.1
+    container_name: kibana
+    hostname: kibana
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch
+    networks:
+      - backend
+
 networks:
   backend:
     driver: bridge
@@ -146,3 +186,5 @@ networks:
 volumes:
   postgres:
   pgadmin:
+  elasticsearch-data:
+  logstash-data:

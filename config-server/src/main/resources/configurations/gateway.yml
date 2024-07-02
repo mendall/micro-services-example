@@ -1,5 +1,7 @@
 server:
   port: 8222
+  servlet:
+    context-path: /
 
 eureka:
   client:
@@ -21,8 +23,31 @@ spring:
           - id: students
             uri: http://student:8090
             predicates:
-              - Path=/api/v1/students/**
+              - Path=/students/v3/api-docs,/api/v1/students/**
           - id: schools
             uri: http://school:8070
             predicates:
-              - Path=/api/v1/schools/**
+              - Path=/schools/v3/api-docs,/api/v1/schools/**
+
+openapi:
+  service:
+    title: Gateway service doc
+    version: 1.0.0
+    url: http://gateway:8222
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    config-url: /v3/api-docs/swagger-config
+    url: /v3/api-docs
+    urls:
+      - url: /v3/api-docs
+        name: API Gateway Service
+      - url: /students/v3/api-docs
+        name: Students
+      - url: /schools/v3/api-docs
+        name: School
+    enabled: true
+    disable-swagger-default-url: true
+    path: /swagger-ui.html

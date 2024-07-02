@@ -5,6 +5,8 @@ eureka:
 
 server:
   port: 8070
+  servlet:
+    context-path: /
 
 spring:
   application:
@@ -26,3 +28,18 @@ application:
 
 kafka:
   bootstrap-servers: kafka:9092
+
+logstash:
+  servers: logstash:5001
+
+openapi:
+  service:
+    title: schools service doc
+    version: 1.0.0
+    url: http://gateway:8222
+
+springdoc:
+  api-docs:
+    path: /schools/v3/api-docs
+  swagger-ui:
+    path: /schools/swagger-ui.html

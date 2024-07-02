@@ -5,6 +5,7 @@ import com.example.student.mapper.StudentMapper;
 import com.example.student.repository.entity.Student;
 import com.example.student.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class StudentService {
 
     private final StudentRepository studentRepository;
@@ -23,6 +25,8 @@ public class StudentService {
     public void save(StudentTO studentTO) {
         studentRepository.save(StudentMapper.INSTANCE.getStudent(studentTO));
         kafkaService.updateSchoolData(studentTO);
+
+        log.info("User saved: {}, {}, {}", studentTO.firstName(), studentTO.lastName(), studentTO.email());
     }
 
     public List<Student> findAll() {

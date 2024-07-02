@@ -2,7 +2,7 @@
 
 ### Use case
 
-The example application includes two core services: School and Student, each with its own dedicated database. Access to these microservices is exclusively managed through the Gateway microservice. During startup, both services fetch their configurations from the config-server and register with the discovery service. Inter-service communication is facilitated via Kafka messages and HTTP requests. All logs are sent through Logstash to Elasticsearch, allowing for visualization in a Kibana dashboard.
+The example application includes two core services: School and Student, each with its own dedicated database. Access to these microservices is exclusively managed through the Gateway microservice. During startup, both services fetch their configurations from the config-server and register with the discovery service. Inter-service communication is facilitated via Kafka messages and HTTP requests. All logs are sent through Logstash to Elasticsearch, allowing for visualization in a Kibana dashboard. Wave Scope integrated for additional visualization.
 
 ### Architecture
 
